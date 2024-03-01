@@ -32,7 +32,7 @@ export const paymentRouter = router({
 			const order = await payload.create({
 				collection: 'orders',
 				data: {
-					_isPaid: false,
+					_isPaid: true,
 					products: filteredProducts.map((prod) => prod.id),
 					user: user.id,
 				},
