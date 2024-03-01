@@ -3,10 +3,11 @@ import { authRouter } from './auth-router';
 import { publicProcedure, router } from './trpc';
 import { QueryValidator } from '../lib/validators/query-validator';
 import { getPayloadClient } from '../get-payload';
+import { paymentRouter as payment } from './payment-router';
 
 export const appRouter = router({
 	authRouter,
-
+	payment,
 	getInfiniteProducts: publicProcedure
 		.input(
 			z.object({
@@ -17,7 +18,7 @@ export const appRouter = router({
 		)
 		.query(async ({ input }) => {
 			const { query, cursor } = input;
-			const { sort, limit, ...queryOpts } = query;
+			const { sort, limit, filterProduct, ...queryOpts } = query;
 
 			const payload = await getPayloadClient();
 
@@ -32,7 +33,7 @@ export const appRouter = router({
 			const page = cursor || 1;
 
 			const {
-				docs: items,
+				docs: unfilteredItems,
 				hasNextPage,
 				nextPage,
 			} = await payload.find({
@@ -48,6 +49,8 @@ export const appRouter = router({
 				limit,
 				page,
 			});
+
+			let items = unfilteredItems.filter((item) => item.id !== filterProduct);
 
 			return {
 				items,

@@ -1,6 +1,7 @@
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import ProductReel from '@/components/products/ProductReel';
 import { Button, buttonVariants } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 import { ArrowDownToLine, CheckCircle, Leaf } from 'lucide-react';
 import Link from 'next/link';
 
@@ -52,7 +53,8 @@ export default function Home() {
 				</div>
 				<ProductReel
 					title="Featured"
-					link="Browse our featured collection."
+					link=""
+					linkText="Browse our collection"
 					query={{ sort: 'desc', limit: 4 }}
 				/>
 				<section
@@ -81,6 +83,19 @@ export default function Home() {
 						))}
 					</div>
 				</section>
+				<ProductReel
+					title="Icons"
+					link="?category=icons"
+					linkText="For more icons"
+					query={{ sort: 'desc', category: 'icons', limit: 4 }}
+				/>
+				<Separator className="w-full my-6" />
+				<ProductReel
+					title="Ui Kits"
+					link="?category=ui_kits"
+					linkText="For more Ui kits"
+					query={{ sort: 'desc', category: 'ui_kits', limit: 4 }}
+				/>
 			</main>
 		</MaxWidthWrapper>
 	);

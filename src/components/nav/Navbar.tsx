@@ -9,10 +9,9 @@ import { Separator } from '../ui/separator';
 import Cart from './Cart';
 import NavMenu from './NavMenu';
 import Sidebar from './Sidebar';
+import UserAccountMenu from './UserAccountMenu';
 
-type Props = {};
-
-const Navbar = async ({}: Props) => {
+const Navbar = async () => {
 	const nextCookies = cookies();
 
 	const user = await getServerUser(nextCookies);
@@ -26,7 +25,7 @@ const Navbar = async ({}: Props) => {
 			<NavMenu />
 			<div className="ml-auto hidden lg:block">
 				{user ? (
-					<p>{user?.email}</p>
+					<UserAccountMenu user={user} />
 				) : (
 					<>
 						<Link

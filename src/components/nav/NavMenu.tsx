@@ -25,7 +25,7 @@ export default function NavMenu() {
 									<li key={index}>
 										<NavigationMenuLink>
 											<Link
-												href={`/${featuredItem.href}`}
+												href={`${featuredItem.href}`}
 												className="group flex flex-col gap-2"
 											>
 												<div className="relative aspect-video w-[500px] group-hover:opacity-80 transition-all">

@@ -1,4 +1,5 @@
-import { LogIn, Menu } from 'lucide-react';
+'use client';
+import { LogIn, LogOut, Menu } from 'lucide-react';
 import { Button, buttonVariants } from '../ui/button';
 import {
 	Sheet,
@@ -13,6 +14,8 @@ import Link from 'next/link';
 import { Separator } from '../ui/separator';
 import { User } from '@/payload-types';
 import { ScrollArea } from '../ui/scroll-area';
+import UserAccountMenu from './UserAccountMenu';
+import { useAuth } from '@/lib/auth';
 
 type Props = {
 	user: User | null;
@@ -26,7 +29,7 @@ const Sidebar = ({ user }: Props) => {
 					<Menu />
 				</Button>
 			</SheetTrigger>
-			<SheetContent side={`left`} className="z-[9000]">
+			<SheetContent side={`left`} className="z-[9000] px-2">
 				<SheetHeader>
 					<SheetTitle>Menu</SheetTitle>
 				</SheetHeader>
@@ -37,7 +40,7 @@ const Sidebar = ({ user }: Props) => {
 							{categroy.featured.map((featuredItem, index) => (
 								<div key={index}>
 									<Link
-										href={`/${featuredItem.href}`}
+										href={`${featuredItem.href}`}
 										className="group flex flex-col gap1"
 									>
 										<div className="relative aspect-video w-[250px] group-hover:opacity-80 transition-all">
@@ -59,7 +62,25 @@ const Sidebar = ({ user }: Props) => {
 					))}
 					<div className="flex items-center justify-center gap-3 mt-2">
 						{user ? (
-							<p>{user.email}</p>
+							<div className="flex flex-col items-center gap-2">
+								<p>{user.email}</p>
+								<Link
+									href={`/sell`}
+									className={buttonVariants({
+										variant: 'outline',
+										className: 'w-full ',
+									})}
+								>
+									Seller dashboard
+								</Link>
+								<Button
+									onClick={useAuth().signOut}
+									variant={'outline'}
+									className="gap-1.5 w-full"
+								>
+									Log out <LogOut className="w-4 h-4" />
+								</Button>
+							</div>
 						) : (
 							<>
 								<Link
