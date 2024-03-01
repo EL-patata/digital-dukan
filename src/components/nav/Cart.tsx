@@ -62,6 +62,7 @@ const Cart = () => {
 										key={product.id}
 									>
 										<Image
+											//@ts-ignore
 											src={product.images[0].image.url}
 											width={100}
 											height={100}

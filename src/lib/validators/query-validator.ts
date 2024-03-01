@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const QueryValidator = z.object({
-	category: z.enum(['icons', 'ui_kits']).optional(),
+	category: z.string().optional(),
 	sort: z.enum(['asc', 'desc']).optional(),
 	limit: z.number().optional(),
 	filterProduct: z.string().optional(),
